@@ -109,13 +109,13 @@ Training parameters:
 Like mentioned before in order to get enough data i drove laps forward and backwards in slaloms. Here you what the cameras captured.
 
 The camera on the left:
-![title](./images/left.PNG)
+![title](./images/left.jpg)
 
 The camera on the center:
-![title](./images/center.PNG)
+![title](./images/center.jpg)
 
 The camera on the right:
-![title](./images/right.PNG)
+![title](./images/right.jpg)
 
 In order to extract more data i added brightness and shadow features like mentioned before. Here is an image after the brightness feature:
 ![title](./images/bright.PNG)
@@ -124,6 +124,6 @@ And here after the shadow:
 ![title](./images/shadow.PNG)
 
 And here is an image flipped for the final step:
-![title](./images/center_flip.PNG)
+![title](./images/center_flip.jpg)
 
 I finally randomly shuffled the data. The final training was done using only three epochs and the car drove a whole lap by itself.
