@@ -2,6 +2,7 @@ import csv
 import cv2
 import numpy as np
 import sklearn
+import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Dropout
 from keras.layers.convolutional import Convolution2D, Cropping2D
@@ -15,16 +16,18 @@ with open('./driving_data/driving_log.csv') as f:
 
 train_samples, validation_samples = train_test_split(lines, test_size=0.2)
 
+# source: https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9
 def augment_brightness_camera_images(image):
-    image1 = cv2.cvtColor(image,cv2.COLOR_RGB2HSV)
+    image1 = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
     image1 = np.array(image1, dtype = np.float64)
     random_bright = .5+np.random.uniform()
     image1[:,:,2] = image1[:,:,2]*random_bright
-    image1[:,:,2][image1[:,:,2]>255]  = 255
+    image1[:,:,2][image1[:,:,2]>255] = 255
     image1 = np.array(image1, dtype = np.uint8)
     image1 = cv2.cvtColor(image1,cv2.COLOR_HSV2RGB)
     return image1
 
+# source: https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9
 def add_random_shadow(image):
     top_y = 320*np.random.uniform()
     top_x = 0
@@ -45,6 +48,7 @@ def add_random_shadow(image):
             image_hls[:, :, 1][cond0] = image_hls[:, :, 1][cond0]*random_bright
     image = cv2.cvtColor(image_hls, cv2.COLOR_HLS2RGB)
     return image
+
 
 def generator(samples, batch_size = 32):
     num_samples = len(samples)
@@ -81,6 +85,7 @@ def generator(samples, batch_size = 32):
             X_train = np.array(augm_imgs)
             y_train = np.array(augm_meas)
             yield sklearn.utils.shuffle(X_train, y_train)
+
 
 model = Sequential()
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160, 320, 3)))
