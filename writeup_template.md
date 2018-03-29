@@ -124,6 +124,6 @@ And here after the shadow:
 ![title](./images/shadow.PNG)
 
 And here is an image flipped for the final step:
-![title](./images/center_flip.jpg)
+![title](./images/flipped.PNG)
 
 I finally randomly shuffled the data. The final training was done using only three epochs and the car drove a whole lap by itself.
