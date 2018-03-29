@@ -36,9 +36,10 @@ The goals / steps of this project are the following:
 
 My project includes the following files:
 * model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
+* drive.py for driving the car in autonomous mode with speed 15
 * model.h5 containing a trained convolution neural network 
-* writeup_report.md or writeup_report.pdf summarizing the results
+* track_1_lap.mp4 video showing the car driving autonomously
+* writeup_report.md summarizing the results
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
@@ -54,23 +55,19 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
-
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+My model applies a combination of the Keras framework and NVidias Convolutional Neural Network as proposed in the tutorials. 
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
-
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+By splitting the data in training and validation sets and keeping the epochs number low (3 epochs only) as proposed in the tutorials, there was no need to apply any overfitting features like dropout or pooling.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used mse loss and adam optimizer, so the learning rate was not tuned manually (model.py line 102).
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
+In order to train the data i drove the car four laps in total, two laps forward and two laps backwards. I was driving the car in slaloms, meaning that i was not driving the car straight, i was continuously go left and right in order to gain more data from all the camers left, right and center.
 
 For details about how I created the training data, see the next section. 
 
