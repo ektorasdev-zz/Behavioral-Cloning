@@ -2,7 +2,6 @@ import csv
 import cv2
 import numpy as np
 import sklearn
-import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Dropout
 from keras.layers.convolutional import Convolution2D, Cropping2D
@@ -72,7 +71,6 @@ def generator(samples, batch_size = 32):
             augm_imgs, augm_meas = [], []
             for img, meas in zip(images, measurements):
                 img_copy = np.copy(img)
-                #img_rgb = cv2.cvtColor(img_copy, cv2.COLOR_BGR2RGB)
                 bright = augment_brightness_camera_images(img_copy)
                 shadow = add_random_shadow(bright)
                 flip = cv2.flip(shadow, 1)
@@ -97,6 +95,7 @@ model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(Flatten())
 model.add(Dense(100))
+model.add(Dropout(0.5))
 model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
