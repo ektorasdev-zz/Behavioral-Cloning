@@ -79,7 +79,7 @@ The first step when i created the model, was to create a lamba layer to preproce
 Then i decided to drive straight around the track one lap and get more data. After i decided to use the LeNet architecture and apply 
 two convulation layers of (6, 5, 5) with relu activation, two max pooling layers and change the dense to 120, 84 and 1. The result was
 the car to make it up to the second left turn before going out of the track, which means it passed the first left turn and the bridge.
-Then i decided to collect more data by dring around the track two laps, only this time i didn't just drive straight i continuously drove left and right in slaloms in order to capture more data. On the same model the car made it again up to the second left turn, but then i decided to switch to Nvidias model by applying more convolution layers and different denses. So now i had five layers in total (you can see the final model below) and the result was that the car made halfway to the right turn before diving into the water.
+Then i decided to collect more data by dring around the track two laps, only this time i didn't just drive straight i continuously drove left and right in slaloms in order to capture more data. On the same model the car made it again up to the second left turn, but then i decided to switch to Nvidias model by applying more convolution layers, different denses and a small dropout to reduce the danger of overfitting. So now i had five layers in total (you can see the final model below) and the result was that the car made halfway to the right turn before diving into the water.
 Then like my mentor suggested is should extract more data from the images, so i applied brightness and shadow features which would enhance the data. After that i decided to train again the car by driving four laps in total again in slaloms, only this time i drove two laps forward and two laps backwards in order to get more data on right turns too.
 The result was that the car succesfully drove a whole lap by itself.
 
@@ -95,6 +95,7 @@ Here is the step by step procedure of the final model:
   - Convolution layer (64, 3, 3) 
   - Flatten
   - Dense 100
+  - Dropout 0.5
   - Dense 50
   - Dense 10
   - Dense 1
