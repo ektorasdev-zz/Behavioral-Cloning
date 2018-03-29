@@ -75,52 +75,55 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
-
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
-
-To combat the overfitting, I modified the model so that ...
-
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
-
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+The first step when i created the model, was to create a lamba layer to preprocess the data with input (160, 320, 3), flatten and dense of 1 and train it on 5 epochs by using the default data provided in the tutorials. The result was the car to drive around itself before diving into the water.
+Then i decided to drive straight around the track one lap and get more data. After i decided to use the LeNet architecture and apply 
+two convulation layers of (6, 5, 5) with relu activation, two max pooling layers and change the dense to 120, 84 and 1. The result was
+the car to make it up to the second left turn before going out of the track, which means it passed the first left turn and the bridge.
+Then i decided to collect more data by dring around the track two laps, only this time i didn't just drive straight i continuously drove left and right in slaloms in order to capture more data. On the same model the car made it again up to the second left turn, but then i decided to switch to Nvidias model by applying more convolution layers and different denses. So now i had five layers in total (you can see the final model below) and the result was that the car made halfway to the right turn before diving into the water.
+Then like my mentor suggested is should extract more data from the images, so i applied brightness and shadow features which would enhance the data. After that i decided to train again the car by driving four laps in total again in slaloms, only this time i drove two laps forward and two laps backwards in order to get more data on right turns too.
+The result was that the car succesfully drove a whole lap by itself.
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
+Here is the step by step procedure of the final model:
+  - Lambada layer data preprocessing with input (160, 320, 5)
+  - Image Cropping 50 pixels top, 20 pixels bottom
+  - Convolution layer (24, 5, 5) relu activation
+  - Convolution layer (36, 5, 5) relu activation
+  - Convolution layer (48, 5, 5) relu activation
+  - Convolution layer (64, 3, 3) 
+  - Convolution layer (64, 3, 3) 
+  - Flatten
+  - Dense 100
+  - Dense 50
+  - Dense 10
+  - Dense 1
+  
+Training parameters:
+  - Loss mse
+  - Optimizer adam
+  - Epochs 3
 
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
+Like mentioned before in order to get enough data i drove laps forward and backwards in slaloms. Here you what the cameras captured.
 
-![alt text][image2]
+The camera on the left:
+![title](./images/left.PNG)
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+The camera on the center:
+![title](./images/center.PNG)
 
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
+The camera on the right:
+![title](./images/right.PNG)
 
-Then I repeated this process on track two in order to get more data points.
+In order to extract more data i added brightness and shadow features like mentioned before. Here is an image after the brightness feature:
+![title](./images/bright.PNG)
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+And here after the shadow:
+![title](./images/shadow.PNG)
 
-![alt text][image6]
-![alt text][image7]
+And here is an image flipped for the final step:
+![title](./images/center_flip.PNG)
 
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I finally randomly shuffled the data. The final training was done using only three epochs and the car drove a whole lap by itself.
